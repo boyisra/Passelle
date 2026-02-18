@@ -1,0 +1,1685 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil - Groupe La Passerelle</title>
+    <link rel="shortcut icon" href="logo1.jpg"/>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="icon.ico">
+    <style>
+        .profile-hero {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.8) 0%, rgba(45, 45, 45, 0.8) 100%);
+            min-height: 40vh;
+        }
+        
+        .profile-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .profile-header {
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #000000;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            padding: 3rem;
+            margin-bottom: 3rem;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        
+        .profile-avatar-section {
+            text-align: center;
+        }
+        
+        .profile-avatar-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 2rem;
+        }
+        
+        .profile-avatar {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            border: 2px solid #000000;
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .profile-avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .avatar-upload {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            border: 2px solid #000000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .avatar-upload:hover {
+            background: var(--secondary-color);
+            transform: scale(1.1);
+        }
+        
+        .avatar-upload input {
+            display: none;
+        }
+        
+        .profile-info h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: #000000;
+        }
+        
+        .profile-bio {
+            color: #000000;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            font-style: italic;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            background: rgba(255, 255, 255, 0.5);
+        }
+        
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid var(--primary-color);
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+        }
+        
+        .stat:hover {
+            background: rgba(102, 126, 234, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+        
+        .stat-number {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: #000000;
+            font-weight: 600;
+        }
+        
+        .profile-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #000000;
+            padding: 0.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: var(--radius-sm);
+            background: rgba(255, 255, 255, 0.5);
+        }
+        
+        .meta-item i {
+            color: var(--primary-color);
+            width: 20px;
+            text-align: center;
+        }
+        
+        .meta-item a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .meta-item a:hover {
+            text-decoration: underline;
+        }
+        
+        .profile-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .btn-action {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid #000000;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: white;
+            color: #000000;
+        }
+        
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-edit-profile {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-color: transparent;
+        }
+        
+        .btn-edit-profile:hover {
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn-settings {
+            background: white;
+            color: #000000;
+        }
+        
+        .btn-settings:hover {
+            background: rgba(102, 126, 234, 0.1);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .profile-content {
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #000000;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .profile-nav {
+            background: rgba(0, 0, 0, 0.05);
+            padding: 0;
+            border-bottom: 2px solid #000000;
+        }
+        
+        .profile-nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .profile-nav li {
+            flex: 1;
+        }
+        
+        .profile-nav a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            color: #000000;
+            text-decoration: none;
+            transition: var(--transition);
+            font-weight: 600;
+            position: relative;
+            border-right: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .profile-nav li:last-child a {
+            border-right: none;
+        }
+        
+        .profile-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary-color);
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+        
+        .profile-nav a:hover,
+        .profile-nav li.active a {
+            color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.8);
+        }
+        
+        .profile-nav a:hover::after,
+        .profile-nav li.active a::after {
+            transform: scaleX(1);
+        }
+        
+        .profile-tabs {
+            padding: 2rem;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .tab-stats {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: var(--radius-sm);
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .comments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .comment-item {
+            background: white;
+            border: 2px solid #000000;
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            transition: var(--transition);
+        }
+        
+        .comment-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-color);
+        }
+        
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .comment-header h4 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        
+        .comment-header a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .comment-header a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .comment-date {
+            color: #666;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .comment-content {
+            margin-bottom: 1rem;
+            color: #000000;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+        
+        .comment-stats {
+            display: flex;
+            gap: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .btn-icon.liked {
+            color: var(--primary-color);
+            background: rgba(102, 126, 234, 0.1);
+        }
+        
+        .btn-icon.saved {
+            color: var(--secondary-color);
+            background: rgba(118, 75, 162, 0.1);
+        }
+        
+        .author {
+            color: #666;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .stat-card {
+            background: white;
+            border: 2px solid #000000;
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-color);
+        }
+        
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .stat-info h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: #000000;
+        }
+        
+        .stat-info p {
+            color: #666;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .tab-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #000000;
+        }
+        
+        .tab-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #000000;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .tab-header h2 i {
+            color: var(--primary-color);
+        }
+        
+        .articles-list {
+            display: grid;
+            gap: 1.5rem;
+        }
+        
+        .article-item {
+            padding: 2rem;
+            border: 1px solid #000000;
+            border-radius: var(--radius-lg);
+            transition: var(--transition);
+            background: white;
+        }
+        
+        .article-item:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .article-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+        
+        .article-item h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .article-item h3 a {
+            color: #000000;
+            text-decoration: none;
+        }
+        
+        .article-item h3 a:hover {
+            color: var(--primary-color);
+        }
+        
+        .article-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .btn-icon {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #000000;
+            background: white;
+            border-radius: var(--radius-sm);
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-icon:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn-icon.btn-danger {
+            background: white;
+            color: #e74c3c;
+            border-color: #e74c3c;
+        }
+        
+        .btn-icon.btn-danger:hover {
+            background: #e74c3c;
+            color: white;
+            box-shadow: 0 3px 10px rgba(231, 76, 60, 0.3);
+        }
+        
+        .article-excerpt {
+            color: #000000;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .article-item-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.875rem;
+        }
+        
+        .article-stats {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .article-stats .stat {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: #666666;
+            padding: 0.25rem 0.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: var(--radius-sm);
+            background: rgba(255, 255, 255, 0.5);
+        }
+        
+        .article-meta {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .status {
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid;
+        }
+        
+        .status.published {
+            background: rgba(46, 204, 113, 0.1);
+            color: #2ecc71;
+            border-color: #2ecc71;
+        }
+        
+        .status.draft {
+            background: rgba(243, 156, 18, 0.1);
+            color: #f39c12;
+            border-color: #f39c12;
+        }
+        
+        .edit-profile-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .edit-profile-modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            border: 2px solid #000000;
+            border-radius: var(--radius-lg);
+            padding: 3rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #000000;
+            padding-bottom: 1rem;
+        }
+        
+        .modal-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #000000;
+            margin: 0;
+        }
+        
+        .close-modal {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #000000;
+            background: white;
+            border-radius: var(--radius-sm);
+            color: #000000;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .close-modal:hover {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-group label i {
+            color: var(--primary-color);
+            width: 20px;
+            text-align: center;
+        }
+        
+        .form-control {
+            padding: 1rem;
+            border: 2px solid #000000;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            transition: var(--transition);
+            font-family: inherit;
+            background: white;
+            width: 100%;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .form-help {
+            font-size: 0.875rem;
+            color: #666666;
+            margin-top: 0.25rem;
+            display: block;
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid #000000;
+        }
+        
+        @media (max-width: 768px) {
+            .profile-header {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .profile-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .profile-nav ul {
+                flex-wrap: wrap;
+            }
+            
+            .profile-nav li {
+                flex: 1 0 50%;
+            }
+            
+            .profile-nav a {
+                border-right: none;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            }
+            
+            .tab-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: start;
+            }
+            
+            .article-item-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .article-item-footer {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-network-wired"></i>
+                <span>Groupe La Passerelle</span>
+            </a>
+            
+            <div class="nav-links">
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Accueil</a>
+                <a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> À propos</a>
+                <a href="contact.html" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
+                <a href="articles.html" class="nav-link"><i class="fas fa-newspaper"></i> Articles</a>
+                <a href="profile.html" class="nav-link active"><i class="fas fa-user"></i> Profil</a>
+                <a href="article_form.html" class="nav-link"><i class="fas fa-edit"></i> Rédiger</a>
+                <a href="search_results.html" class="nav-link"><i class="fas fa-search"></i> Recherche</a>
+                <a href="article_detail.html" class="nav-link"><i class="fas fa-file-alt"></i> Détail</a>
+                <a href="login.html" class="btn btn-outline"><i class="fas fa-sign-in-alt"></i> Connexion</a>
+                <a href="register.html" class="btn btn-primary"><i class="fas fa-user-plus"></i> Inscription</a>
+            </div>
+            
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Profile Hero Section -->
+    <section class="profile-hero">
+        <div class="profile-container">
+            <div class="profile-header">
+                <div class="profile-avatar-section">
+                    <div class="profile-avatar-container">
+                        <div class="profile-avatar" id="profileAvatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="avatar-upload" id="avatarUploadBtn">
+                            <i class="fas fa-camera"></i>
+                            <input type="file" id="avatarInput" accept="image/*">
+                        </div>
+                    </div>
+                    
+                    <div class="profile-actions">
+                        <button class="btn-action btn-edit-profile" id="editProfileBtn">
+                            <i class="fas fa-edit"></i>
+                            Modifier le profil
+                        </button>
+                        <button class="btn-action btn-settings" id="settingsBtn">
+                            <i class="fas fa-cog"></i>
+                            Paramètres
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="profile-info">
+                    <h1>Jean Dupont</h1>
+                    <div class="profile-bio" id="profileBio">
+                        <i class="fas fa-quote-left"></i>
+                        Développeur passionné par les nouvelles technologies et le partage de connaissances. 
+                        J'aime écrire sur Django, React et les bonnes pratiques de développement.
+                        <i class="fas fa-quote-right"></i>
+                    </div>
+                    
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <span class="stat-number">24</span>
+                            <span class="stat-label">Articles</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">128</span>
+                            <span class="stat-label">Commentaires</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">542</span>
+                            <span class="stat-label">Likes reçus</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">1,248</span>
+                            <span class="stat-label">Likes donnés</span>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Membre depuis : 15/06/2025</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Paris, France</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-link"></i>
+                            <a href="https://github.com/jeandupont" target="_blank">
+                                github.com/jeandupont
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="profile-content">
+                <!-- Navigation secondaire -->
+                <nav class="profile-nav">
+                    <ul>
+                        <li class="active" data-tab="articles">
+                            <a href="#articles">
+                                <i class="fas fa-newspaper"></i>
+                                Mes articles
+                            </a>
+                        </li>
+                        <li data-tab="comments">
+                            <a href="#comments">
+                                <i class="fas fa-comments"></i>
+                                Mes commentaires
+                            </a>
+                        </li>
+                        <li data-tab="likes">
+                            <a href="#likes">
+                                <i class="fas fa-heart"></i>
+                                Articles likés
+                            </a>
+                        </li>
+                        <li data-tab="drafts">
+                            <a href="#drafts">
+                                <i class="fas fa-file-alt"></i>
+                                Brouillons
+                            </a>
+                        </li>
+                        <li data-tab="bookmarks">
+                            <a href="#bookmarks">
+                                <i class="fas fa-bookmark"></i>
+                                Signets
+                            </a>
+                        </li>
+                        <li data-tab="stats">
+                            <a href="#stats">
+                                <i class="fas fa-chart-bar"></i>
+                                Statistiques
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                
+                <!-- Onglets de contenu -->
+                <div class="profile-tabs">
+                    <!-- Onglet : Articles -->
+                    <div class="tab-content active" id="articlesTab">
+                        <div class="tab-header">
+                            <h2>
+                                <i class="fas fa-newspaper"></i>
+                                Mes articles publiés
+                            </h2>
+                            <a href="article_form.html" class="btn btn-primary">
+                                <i class="fas fa-plus"></i>
+                                Nouvel article
+                            </a>
+                        </div>
+                        
+                        <div class="articles-list">
+                            <!-- Article 1 -->
+                            <div class="article-item">
+                                <div class="article-item-header">
+                                    <h3>
+                                        <a href="article_detail.html">L'avenir de l'IA dans le développement web</a>
+                                    </h3>
+                                    <div class="article-actions">
+                                        <button class="btn-icon" title="Modifier">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn-icon btn-danger" title="Supprimer">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <p class="article-excerpt">
+                                    Exploration des tendances actuelles et futures de l'intelligence artificielle 
+                                    dans le développement d'applications web...
+                                </p>
+                                <div class="article-item-footer">
+                                    <div class="article-stats">
+                                        <span class="stat">
+                                            <i class="fas fa-eye"></i>
+                                            1,245 vues
+                                        </span>
+                                        <span class="stat">
+                                            <i class="fas fa-heart"></i>
+                                            42 likes
+                                        </span>
+                                        <span class="stat">
+                                            <i class="fas fa-comment"></i>
+                                            18 commentaires
+                                        </span>
+                                    </div>
+                                    <div class="article-meta">
+                                        <span class="date">Publié le 15/01/2026</span>
+                                        <span class="status published">Publié</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Onglet : Commentaires -->
+                    <div class="tab-content" id="commentsTab">
+                        <div class="tab-header">
+                            <h2>
+                                <i class="fas fa-comments"></i>
+                                Mes commentaires
+                            </h2>
+                            <div class="tab-stats">
+                                <span class="stat-item">
+                                    <i class="fas fa-comment"></i>
+                                    24 commentaires publiés
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="comments-list">
+                            <!-- Commentaire 1 -->
+                            <div class="comment-item">
+                                <div class="comment-header">
+                                    <h4>
+                                        <a href="article_detail.html">Sur: "L'avenir de l'IA dans le développement web"</a>
+                                    </h4>
+                                    <span class="comment-date">Il y a 2 jours</span>
+                                </div>
+                                <div class="comment-content">
+                                    <p>Excellent article ! J'apprécie particulièrement la section sur les modèles de langage. Cela m'a beaucoup aidé dans mon projet actuel.</p>
+                                </div>
+                                <div class="comment-stats">
+                                    <span class="stat">
+                                        <i class="fas fa-heart"></i>
+                                        12 likes
+                                    </span>
+                                    <span class="stat">
+                                        <i class="fas fa-reply"></i>
+                                        3 réponses
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <!-- Commentaire 2 -->
+                            <div class="comment-item">
+                                <div class="comment-header">
+                                    <h4>
+                                        <a href="article_detail.html">Sur: "Les meilleures pratiques Django en 2026"</a>
+                                    </h4>
+                                    <span class="comment-date">Il y a 5 jours</span>
+                                </div>
+                                <div class="comment-content">
+                                    <p>Pourriez-vous développer un peu plus sur la partie sécurité ? J'aimerais avoir plus de détails sur l'implémentation du CSRF.</p>
+                                </div>
+                                <div class="comment-stats">
+                                    <span class="stat">
+                                        <i class="fas fa-heart"></i>
+                                        8 likes
+                                    </span>
+                                    <span class="stat">
+                                        <i class="fas fa-reply"></i>
+                                        1 réponse
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Onglet : Articles likés -->
+                    <div class="tab-content" id="likesTab">
+                        <div class="tab-header">
+                            <h2>
+                                <i class="fas fa-heart"></i>
+                                Articles likés
+                            </h2>
+                            <div class="tab-stats">
+                                <span class="stat-item">
+                                    <i class="fas fa-heart"></i>
+                                    15 articles likés
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="articles-list">
+                            <!-- Article liké 1 -->
+                            <div class="article-item">
+                                <div class="article-item-header">
+                                    <h3>
+                                        <a href="article_detail.html">Introduction à React Hooks</a>
+                                    </h3>
+                                    <div class="article-actions">
+                                        <button class="btn-icon liked" title="Retirer le like">
+                                            <i class="fas fa-heart"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <p class="article-excerpt">
+                                    Découvrez comment utiliser les React Hooks pour simplifier vos composants...
+                                </p>
+                                <div class="article-item-footer">
+                                    <div class="article-stats">
+                                        <span class="stat">
+                                            <i class="fas fa-heart"></i>
+                                            Liké il y a 3 jours
+                                        </span>
+                                    </div>
+                                    <div class="article-meta">
+                                        <span class="author">Par Marie Dubois</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Article liké 2 -->
+                            <div class="article-item">
+                                <div class="article-item-header">
+                                    <h3>
+                                        <a href="article_detail.html">Optimisation des performances Django</a>
+                                    </h3>
+                                    <div class="article-actions">
+                                        <button class="btn-icon liked" title="Retirer le like">
+                                            <i class="fas fa-heart"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <p class="article-excerpt">
+                                    Les meilleures techniques pour optimiser vos applications Django...
+                                </p>
+                                <div class="article-item-footer">
+                                    <div class="article-stats">
+                                        <span class="stat">
+                                            <i class="fas fa-heart"></i>
+                                            Liké il y a 1 semaine
+                                        </span>
+                                    </div>
+                                    <div class="article-meta">
+                                        <span class="author">Par Jean Martin</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Onglet : Brouillons -->
+                    <div class="tab-content" id="draftsTab">
+                        <div class="tab-header">
+                            <h2>
+                                <i class="fas fa-file-alt"></i>
+                                Mes brouillons
+                            </h2>
+                            <div class="tab-stats">
+                                <span class="stat-item">
+                                    <i class="fas fa-file-alt"></i>
+                                    3 brouillons en cours
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="articles-list">
+                            <!-- Brouillon 1 -->
+                            <div class="article-item">
+                                <div class="article-item-header">
+                                    <h3>
+                                        <a href="article_detail.html">Guide complet de TypeScript</a>
+                                    </h3>
+                                    <div class="article-actions">
+                                        <button class="btn-icon" title="Continuer l'édition">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn-icon btn-danger" title="Supprimer">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <p class="article-excerpt">
+                                    Tout ce que vous devez savoir sur TypeScript pour vos projets...
+                                </p>
+                                <div class="article-item-footer">
+                                    <div class="article-stats">
+                                        <span class="stat">
+                                            <i class="fas fa-save"></i>
+                                            Dernière sauvegarde : il y a 2 heures
+                                        </span>
+                                    </div>
+                                    <div class="article-meta">
+                                        <span class="status draft">Brouillon</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Brouillon 2 -->
+                            <div class="article-item">
+                                <div class="article-item-header">
+                                    <h3>
+                                        <a href="article_detail.html">Les nouveautés de Python 3.12</a>
+                                    </h3>
+                                    <div class="article-actions">
+                                        <button class="btn-icon" title="Continuer l'édition">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn-icon btn-danger" title="Supprimer">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <p class="article-excerpt">
+                                    Découvrez les nouvelles fonctionnalités et améliorations...
+                                </p>
+                                <div class="article-item-footer">
+                                    <div class="article-stats">
+                                        <span class="stat">
+                                            <i class="fas fa-save"></i>
+                                            Dernière sauvegarde : hier
+                                        </span>
+                                    </div>
+                                    <div class="article-meta">
+                                        <span class="status draft">Brouillon</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Onglet : Signets -->
+                    <div class="tab-content" id="bookmarksTab">
+                        <div class="tab-header">
+                            <h2>
+                                <i class="fas fa-bookmark"></i>
+                                Mes signets
+                            </h2>
+                            <div class="tab-stats">
+                                <span class="stat-item">
+                                    <i class="fas fa-bookmark"></i>
+                                    8 articles sauvegardés
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="articles-list">
+                            <!-- Signet 1 -->
+                            <div class="article-item">
+                                <div class="article-item-header">
+                                    <h3>
+                                        <a href="article_detail.html">Guide complet de TypeScript</a>
+                                    </h3>
+                                    <div class="article-actions">
+                                        <button class="btn-icon saved" title="Retirer des signets">
+                                            <i class="fas fa-bookmark"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <p class="article-excerpt">
+                                    Tout ce que vous devez savoir sur TypeScript pour vos projets...
+                                </p>
+                                <div class="article-item-footer">
+                                    <div class="article-stats">
+                                        <span class="stat">
+                                            <i class="fas fa-bookmark"></i>
+                                            Sauvegardé il y a 2 semaines
+                                        </span>
+                                    </div>
+                                    <div class="article-meta">
+                                        <span class="author">Par Sophie Laurent</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Signet 2 -->
+                            <div class="article-item">
+                                <div class="article-item-header">
+                                    <h3>
+                                        <a href="article_detail.html">Docker pour développeurs web</a>
+                                    </h3>
+                                    <div class="article-actions">
+                                        <button class="btn-icon saved" title="Retirer des signets">
+                                            <i class="fas fa-bookmark"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <p class="article-excerpt">
+                                    Apprenez à containeriser vos applications web avec Docker...
+                                </p>
+                                <div class="article-item-footer">
+                                    <div class="article-stats">
+                                        <span class="stat">
+                                            <i class="fas fa-bookmark"></i>
+                                            Sauvegardé il y a 1 mois
+                                        </span>
+                                    </div>
+                                    <div class="article-meta">
+                                        <span class="author">Par Thomas Bernard</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Onglet : Statistiques -->
+                    <div class="tab-content" id="statsTab">
+                        <div class="tab-header">
+                            <h2>
+                                <i class="fas fa-chart-bar"></i>
+                                Mes statistiques
+                            </h2>
+                        </div>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-newspaper"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3>12</h3>
+                                    <p>Articles publiés</p>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-eye"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3>15,432</h3>
+                                    <p>Total vues</p>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3>486</h3>
+                                    <p>Total likes</p>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-comment"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3>127</h3>
+                                    <p>Total commentaires</p>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3>892</h3>
+                                    <p>Abonnés</p>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-bookmark"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3>234</h3>
+                                    <p>Favoris reçus</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Edit Profile Modal -->
+    <div class="edit-profile-modal" id="editProfileModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Modifier mon profil</h2>
+                <button class="close-modal" id="closeModalBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <form id="editProfileForm">
+                <div class="form-group">
+                    <label for="editName">
+                        <i class="fas fa-user"></i>
+                        Nom complet
+                    </label>
+                    <input type="text" id="editName" class="form-control" value="Jean Dupont">
+                </div>
+                
+                <div class="form-group">
+                    <label for="editBio">
+                        <i class="fas fa-info-circle"></i>
+                        Biographie
+                    </label>
+                    <textarea id="editBio" class="form-control" rows="4">Développeur passionné par les nouvelles technologies et le partage de connaissances. J'aime écrire sur Django, React et les bonnes pratiques de développement.</textarea>
+                    <span class="form-help">Maximum 500 caractères</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editLocation">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Localisation
+                    </label>
+                    <input type="text" id="editLocation" class="form-control" value="Paris, France">
+                </div>
+                
+                <div class="form-group">
+                    <label for="editWebsite">
+                        <i class="fas fa-globe"></i>
+                        Site web
+                    </label>
+                    <input type="url" id="editWebsite" class="form-control" value="https://github.com/jeandupont">
+                </div>
+                
+                <div class="form-group">
+                    <label for="editSkills">
+                        <i class="fas fa-code"></i>
+                        Compétences
+                    </label>
+                    <input type="text" id="editSkills" class="form-control" value="JavaScript, Python, React, Django">
+                    <span class="form-help">Séparez les compétences par des virgules</span>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-outline" id="cancelEditBtn">
+                        <i class="fas fa-times"></i>
+                        Annuler
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i>
+                        Enregistrer
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-blog"></i>
+                        <span>BlogInteractif</span>
+                    </div>
+                    <p class="footer-description">
+                        Partagez vos idées, discutez, et interagissez avec une communauté passionnée de développeurs.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-title">Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="about.html">À propos</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="articles.html">Articles</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-title">Catégories</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">JavaScript</a></li>
+                        <li><a href="#">Python</a></li>
+                        <li><a href="#">Design</a></li>
+                        <li><a href="#">DevOps</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-title">Légal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Conditions d'utilisation</a></li>
+                        <li><a href="#">Politique de confidentialité</a></li>
+                        <li><a href="#">Mentions légales</a></li>
+                        <li><a href="#">Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 BlogInteractif. Tous droits réservés.</p>
+                <p>Fait avec <i class="fas fa-heart text-red"></i> par des développeurs passionnés</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Wait for DOM to be loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // Tab functionality
+            const tabButtons = document.querySelectorAll('.profile-nav li');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons and contents
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to clicked button and corresponding content
+                    button.classList.add('active');
+                    const tabId = button.getAttribute('data-tab');
+                    const targetContent = document.getElementById(tabId + 'Tab');
+                    
+                    if (targetContent) {
+                        targetContent.classList.add('active');
+                        
+                        // Add animation
+                        targetContent.style.opacity = '0';
+                        targetContent.style.transform = 'translateY(20px)';
+                        
+                        setTimeout(() => {
+                            targetContent.style.opacity = '1';
+                            targetContent.style.transform = 'translateY(0)';
+                        }, 100);
+                    }
+                });
+            });
+            
+            // Profile Image Upload
+            const avatarInput = document.getElementById('avatarInput');
+            const avatarUploadBtn = document.getElementById('avatarUploadBtn');
+            const profileAvatar = document.getElementById('profileAvatar');
+            
+            if (avatarUploadBtn) {
+                avatarUploadBtn.addEventListener('click', () => {
+                    avatarInput.click();
+                });
+            }
+            
+            if (avatarInput) {
+                avatarInput.addEventListener('change', (e) => {
+                    const file = e.target.files[0];
+                    if (file && file.type.startsWith('image/')) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            // Update avatar with image
+                            profileAvatar.innerHTML = `<img src="${e.target.result}" alt="Profile" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+                            
+                            // Show success message
+                            const successMessage = document.createElement('div');
+                            successMessage.style.cssText = `
+                                position: fixed;
+                                top: 20px;
+                                right: 20px;
+                                background: linear-gradient(135deg, #2ecc71, #27ae60);
+                                color: white;
+                                padding: 1rem 1.5rem;
+                                border-radius: 8px;
+                                box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+                                z-index: 10000;
+                                animation: slideInRight 0.3s ease-out;
+                            `;
+                            successMessage.innerHTML = '<i class="fas fa-check-circle"></i> Photo de profil mise à jour avec succès!';
+                            document.body.appendChild(successMessage);
+                            
+                            setTimeout(() => {
+                                successMessage.remove();
+                            }, 3000);
+                        };
+                        reader.readAsDataURL(file);
+                    } else {
+                        // Show error message
+                        const errorMessage = document.createElement('div');
+                        errorMessage.style.cssText = `
+                            position: fixed;
+                            top: 20px;
+                            right: 20px;
+                            background: linear-gradient(135deg, #e74c3c, #c0392b);
+                            color: white;
+                            padding: 1rem 1.5rem;
+                            border-radius: 8px;
+                            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+                            z-index: 10000;
+                            animation: slideInRight 0.3s ease-out;
+                        `;
+                        errorMessage.innerHTML = '<i class="fas fa-exclamation-circle"></i> Veuillez sélectionner une image valide (JPG, PNG, GIF).';
+                        document.body.appendChild(errorMessage);
+                        
+                        setTimeout(() => {
+                            errorMessage.remove();
+                        }, 3000);
+                    }
+                });
+            }
+            
+            // Edit Profile Modal
+            const editProfileBtn = document.getElementById('editProfileBtn');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const cancelEditBtn = document.getElementById('cancelEditBtn');
+            const editProfileModal = document.getElementById('editProfileModal');
+            
+            if (editProfileBtn) {
+                editProfileBtn.addEventListener('click', function() {
+                    editProfileModal.classList.add('active');
+                });
+            }
+            
+            if (closeModalBtn) {
+                closeModalBtn.addEventListener('click', function() {
+                    editProfileModal.classList.remove('active');
+                });
+            }
+            
+            if (cancelEditBtn) {
+                cancelEditBtn.addEventListener('click', function() {
+                    editProfileModal.classList.remove('active');
+                });
+            }
+            
+            // Close modal when clicking outside
+            if (editProfileModal) {
+                editProfileModal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Save profile
+            const editProfileForm = document.getElementById('editProfileForm');
+            if (editProfileForm) {
+                editProfileForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const name = document.getElementById('editName').value;
+                    const bio = document.getElementById('editBio').value;
+                    const location = document.getElementById('editLocation').value;
+                    const website = document.getElementById('editWebsite').value;
+                    const skills = document.getElementById('editSkills').value;
+                    
+                    // Update profile display
+                    const profileName = document.querySelector('.profile-info h1');
+                    if (profileName) profileName.textContent = name;
+                    
+                    const profileBio = document.getElementById('profileBio');
+                    if (profileBio) {
+                        profileBio.innerHTML = `
+                            <i class="fas fa-quote-left"></i>
+                            ${bio}
+                            <i class="fas fa-quote-right"></i>
+                        `;
+                    }
+                    
+                    // Update meta items
+                    const metaItems = document.querySelectorAll('.meta-item');
+                    if (metaItems.length > 1) {
+                        metaItems[1].querySelector('span').textContent = `Localisation : ${location}`;
+                    }
+                    if (metaItems.length > 2) {
+                        metaItems[2].querySelector('a').textContent = website;
+                        metaItems[2].querySelector('a').href = website;
+                    }
+                    
+                    // Close modal
+                    editProfileModal.classList.remove('active');
+                    
+                    // Show success message
+                    const successMessage = document.createElement('div');
+                    successMessage.style.cssText = `
+                        position: fixed;
+                        top: 20px;
+                        right: 20px;
+                        background: linear-gradient(135deg, #2ecc71, #27ae60);
+                        color: white;
+                        padding: 1rem 1.5rem;
+                        border-radius: 8px;
+                        box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+                        z-index: 10000;
+                        animation: slideInRight 0.3s ease-out;
+                    `;
+                    successMessage.innerHTML = '<i class="fas fa-check-circle"></i> Profil mis à jour avec succès!';
+                    document.body.appendChild(successMessage);
+                    
+                    setTimeout(() => {
+                        successMessage.remove();
+                    }, 3000);
+                });
+            }
+            
+            // Settings button
+            const settingsBtn = document.getElementById('settingsBtn');
+            if (settingsBtn) {
+                settingsBtn.addEventListener('click', function() {
+                    alert('Page des paramètres avancés bientôt disponible!\n\nFonctionnalités prévues:\n- Notifications par email\n- Confidentialité\n- Thèmes\n- Langues\n- Suppression de compte');
+                });
+            }
+            
+        });
+    </script>
+</body>
+</html>
